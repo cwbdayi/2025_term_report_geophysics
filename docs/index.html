@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地球物理與資料處理實務課程</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: rgba(52, 211, 153, 0.5);
+        }
+        .tag { font-size: 0.75rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
+        .tag-geo { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+        .tag-data { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid #8b5cf6; }
+        .tag-event { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-slate-900/90 backdrop-blur border-b border-slate-700">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-500">
+                <i class="fa-solid fa-earth-asia mr-2"></i>Geophysics Class
+            </div>
+            <a href="https://huggingface.co/spaces/cwadayi/Geophysics_class" target="_blank" class="text-sm hover:text-emerald-400 transition">
+                <i class="fa-solid fa-link mr-1"></i> 課程資源 (HuggingFace)
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-16 px-6 container mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">地球物理 X 資料科學</h1>
+        <p class="text-slate-400 max-w-2xl mx-auto text-lg mb-8">
+            結合地球物理核心知識與 Python、AI 實作技能，探索從地底探勘到自動化監測的全方位應用。
+        </p>
+        <div class="flex justify-center gap-4 text-sm">
+            <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-emerald-500"></div> 地球物理知識</span>
+            <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-violet-500"></div> 資料處理技能</span>
+        </div>
+    </header>
+
+    <!-- Timeline Grid -->
+    <main class="container mx-auto px-4 pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="course-grid">
+            <!-- Cards will be injected by JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+        <p>&copy; 2025 Geophysics Class. Designed for Interactive Learning.</p>
+    </footer>
+
+    <script>
+        const schedule = [
+            { week: 1, date: "9/10", title: "課程介紹 & 環境建置", geo: "地球物理概要", data: "Python環境, Git, Colab, Dify", type: "normal" },
+            { week: 2, date: "9/17", title: "折射探勘與基礎繪圖", geo: "折射探勘學", data: "PyGMT, Obspy, Streamlit", type: "normal" },
+            { week: 3, date: "9/24", title: "校園野外實驗 (折射探勘)", geo: "實地操作", data: "數據採集", type: "special", link: "experiment.html" },
+            { week: 4, date: "10/1", title: "地球物理專題演講", geo: "專題講座", data: "-", type: "event" },
+            { week: 5, date: "10/8", title: "折射探勘與互動程式", geo: "折射探勘學", data: "Hugging Face Space 實作", type: "normal" },
+            { week: 6, date: "10/15", title: "重力探勘基礎", geo: "重力探勘學", data: "Colab 進階使用", type: "normal" },
+            { week: 7, date: "10/22", title: "重力探勘與 AI API", geo: "重力探勘學", data: "Gemini API, Dify", type: "normal" },
+            { week: 8, date: "10/29", title: "期中考", geo: "測驗", data: "-", type: "exam" },
+            { week: 9, date: "11/05", title: "板塊構造 (一)", geo: "板塊與地震", data: "PyGMT 繪圖應用", type: "normal" },
+            { week: 10, date: "11/12", title: "板塊構造 (二)", geo: "板塊與地震", data: "PyGMT 進階", type: "normal" },
+            { week: 11, date: "11/19", title: "地磁學 (一)", geo: "板塊與地磁", data: "Obspy 地震資料處理", type: "normal" },
+            { week: 12, date: "11/26", title: "地磁學 (二)", geo: "板塊與地磁", data: "Obspy 應用", type: "normal" },
+            { week: 13, date: "12/3", title: "地熱探勘", geo: "板塊與地熱", data: "Gemini API, Dify 整合", type: "normal" },
+            { week: 14, date: "12/10", title: "專題演講：黃有志博士", geo: "火山與地震觀測", data: "旅日經驗分享", type: "event" },
+            { week: 15, date: "12/17", title: "專題演講：廖勿渝博士", geo: "AI 遇上地震學", data: "深度學習監測", type: "event" },
+            { week: 16, date: "12/24", title: "期末專題發表", geo: "成果展示", data: "綜合應用", type: "exam" },
+            { week: 17, date: "12/31", title: "參訪：中油大樓", geo: "企業參訪", data: "信義區松仁路3號", type: "trip" },
+            { week: 18, date: "1/7", title: "參訪：地質調查所", geo: "機構參訪", data: "實地考察", type: "trip" }
+        ];
+
+        const grid = document.getElementById('course-grid');
+
+        schedule.forEach(item => {
+            let cardClass = "glass-card p-6 rounded-xl relative overflow-hidden group cursor-default";
+            let icon = "fa-book-open";
+            let linkHtml = "";
+            
+            if(item.type === 'exam') {
+                cardClass += " border-red-500/30";
+                icon = "fa-pen-to-square";
+            } else if (item.type === 'event') {
+                cardClass += " border-amber-500/30";
+                icon = "fa-microphone";
+            } else if (item.type === 'trip') {
+                cardClass += " border-blue-500/30";
+                icon = "fa-bus";
+            } else if (item.type === 'special') {
+                cardClass += " border-emerald-500/50 cursor-pointer ring-2 ring-emerald-500/20";
+                icon = "fa-person-digging";
+                // Only Week 3 gets the link functionality here
+                if(item.link) {
+                    linkHtml = `<a href="${item.link}" class="absolute inset-0 z-10" title="查看實驗詳情"></a>`;
+                }
+            }
+
+            const html = `
+                <div class="${cardClass}">
+                    ${linkHtml}
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-mono text-slate-400">WEEK ${item.week}</span>
+                            <span class="text-2xl font-bold text-emerald-300">${item.date}</span>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                            <i class="fa-solid ${icon}"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-emerald-300 transition-colors">${item.title}</h3>
+                    
+                    <div class="space-y-2">
+                        ${item.geo !== '-' ? `<div class="flex items-center gap-2"><span class="tag tag-geo">知識</span> <span class="text-sm text-slate-300">${item.geo}</span></div>` : ''}
+                        ${item.data !== '-' ? `<div class="flex items-center gap-2"><span class="tag tag-data">技能</span> <span class="text-sm text-slate-300">${item.data}</span></div>` : ''}
+                    </div>
+                    
+                    ${item.link ? `<div class="mt-4 text-right text-xs text-emerald-400 font-bold animate-pulse">點擊查看詳情 <i class="fa-solid fa-arrow-right"></i></div>` : ''}
+                </div>
+            `;
+            grid.innerHTML += html;
+        });
+    </script>
+</body>
+</html>
