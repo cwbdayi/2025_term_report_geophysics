@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3: 校園野外實驗 - 折射探勘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .hero-pattern {
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .tab-btn.active {
+            border-bottom: 2px solid #34d399;
+            color: #34d399;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header / Navigation -->
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 hover:text-emerald-400 transition">
+                <i class="fa-solid fa-arrow-left"></i> 回課程總覽
+            </a>
+            <div class="font-bold text-lg">Week 3 Field Trip</div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <div class="hero-pattern text-white py-20 px-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-10 text-9xl transform translate-x-10 -translate-y-10">
+            <i class="fa-solid fa-wave-square"></i>
+        </div>
+        <div class="container mx-auto relative z-10">
+            <span class="bg-emerald-500 text-xs font-bold px-2 py-1 rounded text-white mb-4 inline-block">9月24日</span>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">校園野外實驗：折射探勘</h1>
+            <p class="text-xl text-slate-400 max-w-2xl">
+                實地操作震測儀器，透過人工震源與受波器陣列，解析校園地下的淺層速度構造。
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+        
+        <!-- Left Column: Info & Equipment -->
+        <div class="lg:col-span-1 space-y-8">
+            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-emerald-500">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-bullseye text-emerald-500"></i> 實驗目標
+                </h3>
+                <ul class="list-disc list-inside space-y-2 text-slate-600">
+                    <li>熟悉震測儀器架設流程</li>
+                    <li>學習檢波器 (Geophone) 埋設技巧</li>
+                    <li>辨識初達波 (First arrival)</li>
+                    <li>採集數據供後續 Python 分析</li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-toolbox text-slate-700"></i> 儀器設備
+                </h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 bg-slate-100 rounded-lg">
+                        <i class="fa-solid fa-hammer text-2xl text-slate-600 mb-2"></i>
+                        <div class="text-sm font-bold">大鐵鎚</div>
+                        <div class="text-xs text-slate-500">人工震源</div>
+                    </div>
+                    <div class="text-center p-3 bg-slate-100 rounded-lg">
+                        <i class="fa-solid fa-wifi text-2xl text-slate-600 mb-2"></i>
+                        <div class="text-sm font-bold">檢波器</div>
+                        <div class="text-xs text-slate-500">接收訊號</div>
+                    </div>
+                    <div class="text-center p-3 bg-slate-100 rounded-lg">
+                        <i class="fa-solid fa-laptop-code text-2xl text-slate-600 mb-2"></i>
+                        <div class="text-sm font-bold">震測儀</div>
+                        <div class="text-xs text-slate-500">紀錄數據</div>
+                    </div>
+                    <div class="text-center p-3 bg-slate-100 rounded-lg">
+                        <i class="fa-solid fa-ruler text-2xl text-slate-600 mb-2"></i>
+                        <div class="text-sm font-bold">皮尺</div>
+                        <div class="text-xs text-slate-500">測線佈置</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Interactive Process -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden min-h-[500px]">
+                <!-- Tabs -->
+                <div class="flex border-b">
+                    <button onclick="switchTab('prep')" id="tab-prep" class="tab-btn active flex-1 py-4 font-bold text-slate-500 hover:bg-slate-50 transition">
+                        1. 測線佈置
+                    </button>
+                    <button onclick="switchTab('action')" id="tab-action" class="tab-btn flex-1 py-4 font-bold text-slate-500 hover:bg-slate-50 transition">
+                        2. 敲擊施測
+                    </button>
+                    <button onclick="switchTab('data')" id="tab-data" class="tab-btn flex-1 py-4 font-bold text-slate-500 hover:bg-slate-50 transition">
+                        3. 數據預覽
+                    </button>
+                </div>
+
+                <!-- Content Area -->
+                <div class="p-8">
+                    <!-- Tab 1: Preparation -->
+                    <div id="content-prep" class="tab-content block animate-fade-in">
+                        <h2 class="text-2xl font-bold mb-4 text-slate-800">測線與檢波器佈置</h2>
+                        <p class="mb-6 text-slate-600">選擇平坦且干擾較少的地面（如操場草皮），拉開皮尺設定測線長度。依據設定間距（例如 2 公尺）埋設垂直分量檢波器。</p>
+                        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100 mb-4">
+                            <h4 class="font-bold text-emerald-800 mb-2">💡 重點提示</h4>
+                            <p class="text-sm text-emerald-700">檢波器必須垂直插入土中並確認接觸良好，否則訊號雜訊比 (S/N Ratio) 會過低。</p>
+                        </div>
+                        <div class="flex justify-center mt-6">
+                            <div class="w-full h-48 bg-slate-200 rounded flex items-center justify-center text-slate-400">
+                                <i class="fa-regular fa-image text-4xl mr-2"></i> 示意圖：檢波器陣列
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Action -->
+                    <div id="content-action" class="tab-content hidden animate-fade-in">
+                        <h2 class="text-2xl font-bold mb-4 text-slate-800">人工震源激發</h2>
+                        <p class="mb-6 text-slate-600">使用大鐵鎚敲擊金屬板產生震波。通常需要在測線的兩端及中間點分別進行敲擊（正打、反打、中打），以獲得完整的地下構造資訊。</p>
+                        <ol class="list-decimal list-inside space-y-3 text-slate-700 font-medium">
+                            <li>操作員確認儀器進入 "Ready" 狀態。</li>
+                            <li>施測者舉起鐵鎚，穩定敲擊金屬板。</li>
+                            <li>觸發器 (Trigger) 啟動儀器紀錄 1-2 秒。</li>
+                            <li>檢查波形，若訊號不清則重複堆疊 (Stack)。</li>
+                        </ol>
+                    </div>
+
+                    <!-- Tab 3: Data -->
+                    <div id="content-data" class="tab-content hidden animate-fade-in">
+                        <h2 class="text-2xl font-bold mb-4 text-slate-800">資料回收與初步品管</h2>
+                        <p class="mb-4 text-slate-600">將記錄到的波形存檔（SEG-2 或 SEG-Y 格式）。現場需初步檢查初達波是否清晰。</p>
+                        
+                        <!-- Simulated Waveform UI -->
+                        <div class="bg-slate-900 p-4 rounded-lg font-mono text-xs overflow-hidden relative">
+                            <div class="absolute top-2 right-4 text-emerald-400">Status: RECORDING OK</div>
+                            <div class="space-y-1 text-emerald-500 opacity-80">
+                                <div>Ch1: ~~~~~~^v^v^~~~~~~~~~~~~~</div>
+                                <div>Ch2: ~~~~~~~~^v^v^v~~~~~~~~~~~</div>
+                                <div>Ch3: ~~~~~~~~~~^v^v^v^~~~~~~~~</div>
+                                <div>Ch4: ~~~~~~~~~~~~^v^v^v^v~~~~~</div>
+                                <div>Ch5: ~~~~~~~~~~~~~~^v^v^v^v~~~</div>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-700 text-slate-400">
+                                File: LINE01_SHOT01.DAT <br>
+                                Samples: 2048 | Interval: 0.5ms
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-right">
+                            <a href="#" class="inline-block bg-violet-600 text-white px-6 py-2 rounded-full hover:bg-violet-700 transition shadow-lg">
+                                <i class="fa-brands fa-python mr-2"></i> 前往 Colab 處理資料
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all content
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('text-emerald-500');
+                btn.classList.add('text-slate-500');
+            });
+
+            // Show selected content
+            document.getElementById('content-' + tabName).classList.remove('hidden');
+            
+            // Add active class to selected button
+            const activeBtn = document.getElementById('tab-' + tabName);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-slate-500');
+        }
+    </script>
+</body>
+</html>
