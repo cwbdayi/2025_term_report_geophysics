@@ -18,6 +18,9 @@
             border-bottom: 2px solid #34d399;
             color: #34d399;
         }
+        /* 增加圖片載入時的過渡效果 */
+        img { transition: transform 0.5s ease; }
+        img:hover { transform: scale(1.02); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -94,7 +97,7 @@
 
         <!-- Right Column: Interactive Process -->
         <div class="lg:col-span-2">
-            <div class="bg-white rounded-xl shadow-md overflow-hidden min-h-[500px]">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden min-h-[600px]">
                 <!-- Tabs -->
                 <div class="flex border-b">
                     <button onclick="switchTab('prep')" id="tab-prep" class="tab-btn active flex-1 py-4 font-bold text-slate-500 hover:bg-slate-50 transition">
@@ -110,18 +113,25 @@
 
                 <!-- Content Area -->
                 <div class="p-8">
-                    <!-- Tab 1: Preparation -->
+                    <!-- Tab 1: Preparation (Image Added Here) -->
                     <div id="content-prep" class="tab-content block animate-fade-in">
                         <h2 class="text-2xl font-bold mb-4 text-slate-800">測線與檢波器佈置</h2>
                         <p class="mb-6 text-slate-600">選擇平坦且干擾較少的地面（如操場草皮），拉開皮尺設定測線長度。依據設定間距（例如 2 公尺）埋設垂直分量檢波器。</p>
-                        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100 mb-4">
+                        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100 mb-6">
                             <h4 class="font-bold text-emerald-800 mb-2">💡 重點提示</h4>
                             <p class="text-sm text-emerald-700">檢波器必須垂直插入土中並確認接觸良好，否則訊號雜訊比 (S/N Ratio) 會過低。</p>
                         </div>
+                        
+                        <!-- 插入的圖片區域 -->
                         <div class="flex justify-center mt-6">
-                            <div class="w-full h-48 bg-slate-200 rounded flex items-center justify-center text-slate-400">
-                                <i class="fa-regular fa-image text-4xl mr-2"></i> 示意圖：檢波器陣列
-                            </div>
+                            <figure class="w-full rounded-xl overflow-hidden shadow-lg border border-slate-200 group">
+                                <img src="https://raw.githubusercontent.com/cwbdayi/2025_term_report_geophysics/main/figures/volcano_ash.jpg" 
+                                     alt="野外實驗示意圖" 
+                                     class="w-full h-64 object-cover object-center group-hover:scale-105 transition duration-700">
+                                <figcaption class="bg-slate-100 text-slate-500 text-xs text-center py-2">
+                                    圖：野外實驗環境示意 (來源: GitHub 課程資源)
+                                </figcaption>
+                            </figure>
                         </div>
                     </div>
 
@@ -143,23 +153,23 @@
                         <p class="mb-4 text-slate-600">將記錄到的波形存檔（SEG-2 或 SEG-Y 格式）。現場需初步檢查初達波是否清晰。</p>
                         
                         <!-- Simulated Waveform UI -->
-                        <div class="bg-slate-900 p-4 rounded-lg font-mono text-xs overflow-hidden relative">
-                            <div class="absolute top-2 right-4 text-emerald-400">Status: RECORDING OK</div>
-                            <div class="space-y-1 text-emerald-500 opacity-80">
+                        <div class="bg-slate-900 p-4 rounded-lg font-mono text-xs overflow-hidden relative shadow-inner">
+                            <div class="absolute top-2 right-4 text-emerald-400 animate-pulse">Status: RECORDING OK</div>
+                            <div class="space-y-1 text-emerald-500 opacity-80 mt-4">
                                 <div>Ch1: ~~~~~~^v^v^~~~~~~~~~~~~~</div>
                                 <div>Ch2: ~~~~~~~~^v^v^v~~~~~~~~~~~</div>
                                 <div>Ch3: ~~~~~~~~~~^v^v^v^~~~~~~~~</div>
                                 <div>Ch4: ~~~~~~~~~~~~^v^v^v^v~~~~~</div>
                                 <div>Ch5: ~~~~~~~~~~~~~~^v^v^v^v~~~</div>
                             </div>
-                            <div class="mt-4 pt-2 border-t border-slate-700 text-slate-400">
-                                File: LINE01_SHOT01.DAT <br>
-                                Samples: 2048 | Interval: 0.5ms
+                            <div class="mt-4 pt-2 border-t border-slate-700 text-slate-400 flex justify-between">
+                                <span>File: LINE01_SHOT01.DAT</span>
+                                <span>Interval: 0.5ms</span>
                             </div>
                         </div>
 
-                        <div class="mt-6 text-right">
-                            <a href="#" class="inline-block bg-violet-600 text-white px-6 py-2 rounded-full hover:bg-violet-700 transition shadow-lg">
+                        <div class="mt-8 text-right">
+                            <a href="https://colab.research.google.com/" target="_blank" class="inline-block bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-6 py-3 rounded-full hover:shadow-lg hover:-translate-y-1 transition-all">
                                 <i class="fa-brands fa-python mr-2"></i> 前往 Colab 處理資料
                             </a>
                         </div>
